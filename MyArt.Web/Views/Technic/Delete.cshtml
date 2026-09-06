@@ -1,0 +1,27 @@
+﻿@using MyArt.Web.Models;
+@model Technic
+
+<div class="container-fluid py-4">
+
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #84b133, #dfe057, #515c6a);">
+            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>Delete Technic</h5>
+            <p class="mb-0 small" style="color: #FFF;">Delete technic information</p>
+        </div>
+        <div class="card-body p-4">
+            <form method="post" asp-action="Delete">
+                <input asp-for="Id" type="hidden" />
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Technic Name</label>
+                    <input type="text" name="Name" readonly asp-for="Name" class="form-control" placeholder="Enter technic name" />
+                    
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-outline-danger fw-semibold">Delete Technic</button>
+                    <a asp-controller="Technic" asp-action="Index" class="btn btn-outline-secondary fw-medium">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
