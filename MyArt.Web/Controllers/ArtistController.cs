@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyArt.Web.Data;
-using MyArt.Web.Models;
+using MyArt.Business.Services.IServices;
+using MyArt.Models;
 
-namespace MyArt.Web.Controllers
+namespace MyArt.DataAccess.Controllers
 {
     public class ArtistController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public ArtistController(ApplicationDbContext context)
+        private readonly IArtistService _artistService;
+        public ArtistController(IArtistService artistService)
         {
-            _context = context;
+            _artistService = artistService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var artists = _context.Artists.ToList();
+            var artists = await _artistService.GetAllArtistsAsync();
             return View(artists);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
@@ -26,21 +26,20 @@ namespace MyArt.Web.Controllers
         [ActionName("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreatePOST(Artist artist)
+        public async Task<IActionResult> CreatePOST(Artist artist)
         {
-            _context.Artists.Add(artist);
-            _context.SaveChanges();
+            await _artistService.CreateArtistAsync(artist);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Update(int? id)
+        public async Task<IActionResult> Update(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var artist = _context.Artists.Find(id);
+            var artist = await _artistService.GetArtistByIdAsync(id.Value);
             if (artist == null)
             {
                 return NotFound();
@@ -52,21 +51,20 @@ namespace MyArt.Web.Controllers
         [ActionName("Update")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdatePOST(Artist artist)
+        public async Task<IActionResult> UpdatePOST(Artist artist)
         {
-            _context.Artists.Update(artist);
-            _context.SaveChanges();
+            await _artistService.UpdateArtistAsync(artist);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var artist = _context.Artists.Find(id);
+            var artist = await _artistService.GetArtistByIdAsync(id.Value);
             if (artist == null)
             {
                 return NotFound();
@@ -78,15 +76,9 @@ namespace MyArt.Web.Controllers
         [ActionName("Delete")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int id)
+        public async Task<IActionResult> DeletePOST(int id)
         {
-            var artist = _context.Artists.Find(id);
-            if (artist == null)
-            {
-                return NotFound();
-            }
-            _context.Artists.Remove(artist);
-            _context.SaveChanges();
+            await _artistService.DeleteArtistAsync(id);
             return RedirectToAction("Index");
         }
     }

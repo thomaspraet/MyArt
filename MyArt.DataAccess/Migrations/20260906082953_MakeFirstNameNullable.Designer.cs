@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyArt.Web.Data;
+using MyArt.DataAccess.Migrations;
 
 #nullable disable
 
-namespace MyArt.Web.Migrations
+namespace MyArt.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260906083500_MakePlaceAndYearNullable")]
-    partial class MakePlaceAndYearNullable
+    [Migration("20260906082953_MakeFirstNameNullable")]
+    partial class MakeFirstNameNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,9 +243,11 @@ namespace MyArt.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfBirth")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("YearOfBirth")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

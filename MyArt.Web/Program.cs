@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyArt.Web.Data;
+using MyArt.Business.Services;
+using MyArt.Business.Services.IServices;
+using MyArt.DataAccess;
+using MyArt.DataAccess.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IArtistService, ArtistService>();
+builder.Services.AddScoped<ITechnicService, TechnicService>();
 
 var app = builder.Build();
 

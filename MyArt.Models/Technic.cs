@@ -1,4 +1,4 @@
-﻿namespace MyArt.Web.Models
+﻿namespace MyArt.Models
 {
     public class Technic
     {

@@ -20,4 +20,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyArt.Business\MyArt.Business.csproj" />
+    <ProjectReference Include="..\MyArt.DataAccess\MyArt.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

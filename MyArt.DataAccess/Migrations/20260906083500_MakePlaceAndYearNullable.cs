@@ -2,16 +2,24 @@
 
 #nullable disable
 
-namespace MyArt.Web.Migrations
+namespace MyArt.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class MakeFirstNameNullable : Migration
+    public partial class MakePlaceAndYearNullable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "FirstName",
+                name: "YearOfBirth",
+                table: "Artists",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "PlaceOfBirth",
                 table: "Artists",
                 type: "nvarchar(max)",
                 nullable: true,
@@ -23,7 +31,17 @@ namespace MyArt.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "FirstName",
+                name: "YearOfBirth",
+                table: "Artists",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "PlaceOfBirth",
                 table: "Artists",
                 type: "nvarchar(max)",
                 nullable: false,
