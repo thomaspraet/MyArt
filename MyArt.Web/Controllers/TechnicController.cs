@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyArt.Business.Services.IServices;
-using MyArt.Models;
+using MyArt.Web.Data;
+using MyArt.Web.Models;
 
-namespace MyArt.DataAccess.Controllers
+namespace MyArt.Web.Controllers
 {
     public class TechnicController : Controller
     {
-        private readonly ITechnicService _technicService;
-        public TechnicController(ITechnicService technicService)
+        private readonly ApplicationDbContext _context;
+        public TechnicController(ApplicationDbContext context)
         {
-            _technicService = technicService;
+            _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var technics = await _technicService.GetAllTechnicsAsync();
+            var technics = _context.Technics.ToList();
             return View(technics);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -26,20 +26,21 @@ namespace MyArt.DataAccess.Controllers
         [ActionName("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePOST(Technic technic)
+        public IActionResult CreatePOST(Technic technic)
         {
-            await _technicService.CreateTechnicAsync(technic);
+            _context.Technics.Add(technic);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public IActionResult Update(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var technic = await _technicService.GetTechnicByIdAsync(id.Value);
+            var technic = _context.Technics.Find(id);
             if (technic == null)
             {
                 return NotFound();
@@ -51,20 +52,21 @@ namespace MyArt.DataAccess.Controllers
         [ActionName("Update")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdatePOST(Technic technic)
+        public IActionResult UpdatePOST(Technic technic)
         {
-            await _technicService.UpdateTechnicAsync(technic);
+            _context.Technics.Update(technic);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var technic = await _technicService.GetTechnicByIdAsync(id.Value);
+            var technic = _context.Technics.Find(id);
             if (technic == null)
             {
                 return NotFound();
@@ -76,9 +78,15 @@ namespace MyArt.DataAccess.Controllers
         [ActionName("Delete")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePOST(int id)
+        public IActionResult DeletePOST(int id)
         {
-            await _technicService.DeleteTechnicAsync(id);
+            var technic = _context.Technics.Find(id);
+            if (technic == null)
+            {
+                return NotFound();
+            }
+            _context.Technics.Remove(technic);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }

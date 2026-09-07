@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyArt.DataAccess.Migrations;
+using MyArt.Web.Data;
 
 #nullable disable
 
-namespace MyArt.DataAccess.Migrations
+namespace MyArt.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260905130947_SeedArtistAndTechnicTable")]
-    partial class SeedArtistAndTechnicTable
+    [Migration("20260906082953_MakeFirstNameNullable")]
+    partial class MakeFirstNameNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,7 +236,6 @@ namespace MyArt.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

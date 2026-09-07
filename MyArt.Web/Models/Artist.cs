@@ -1,4 +1,4 @@
-﻿namespace MyArt.Models
+﻿namespace MyArt.Web.Models
 {
     public class Artist
     {

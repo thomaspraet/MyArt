@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace MyArt.DataAccess.Controllers
+namespace MyArt.Web.Controllers
 {
     public class HomeController : Controller
     {

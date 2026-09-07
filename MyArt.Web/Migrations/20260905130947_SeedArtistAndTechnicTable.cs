@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MyArt.DataAccess.Migrations
+namespace MyArt.Web.Migrations
 {
     /// <inheritdoc />
     public partial class SeedArtistAndTechnicTable : Migration

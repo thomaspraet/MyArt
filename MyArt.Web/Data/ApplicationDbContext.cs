@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MyArt.Models;
+using MyArt.Web.Models;
 
-namespace MyArt.DataAccess.Migrations
+namespace MyArt.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
