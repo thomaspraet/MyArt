@@ -12,8 +12,8 @@ using MyArt.Web.Data;
 namespace MyArt.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260905130947_SeedArtistAndTechnicTable")]
-    partial class SeedArtistAndTechnicTable
+    [Migration("20260908114635_UpdateModelPendingChanges")]
+    partial class UpdateModelPendingChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,22 @@ namespace MyArt.Web.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f79a0806-0bc2-4d7f-b4c4-19263f08583a",
+                            ConcurrencyStamp = "833c8e49-5b6d-4fc0-b71a-4dfb43ab339c",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "b3a56ae8-7969-4e4a-8902-01ae516f78a0",
+                            ConcurrencyStamp = "f6046ec7-1bf9-4536-8b82-e7aae1cee092",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -140,6 +156,24 @@ namespace MyArt.Web.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3af3f6ca-31f1-405c-ac11-7c8a1249bbc0",
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO1jWEpPJEyEi9noVsp9qXqHtlylGof/k2BZ10f/InqqSaPWDD0e1+kgwa3jqw9Bxw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8e7dd5d0-a8da-42ed-b56d-7b7447ec8494",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@localhost.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -204,6 +238,13 @@ namespace MyArt.Web.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                            RoleId = "f79a0806-0bc2-4d7f-b4c4-19263f08583a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -236,7 +277,6 @@ namespace MyArt.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -244,11 +284,9 @@ namespace MyArt.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfBirth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("YearOfBirth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

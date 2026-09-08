@@ -12,8 +12,8 @@ using MyArt.Web.Data;
 namespace MyArt.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260906083500_MakePlaceAndYearNullable")]
-    partial class MakePlaceAndYearNullable
+    [Migration("20260908114320_SeedingDefaultRolesandUser")]
+    partial class SeedingDefaultRolesandUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,22 @@ namespace MyArt.Web.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f79a0806-0bc2-4d7f-b4c4-19263f08583a",
+                            ConcurrencyStamp = "28b70e8c-2f9b-4083-a819-d308486a3322",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "b3a56ae8-7969-4e4a-8902-01ae516f78a0",
+                            ConcurrencyStamp = "d431deca-b4d6-42f6-8648-74194a57c2fa",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -140,6 +156,24 @@ namespace MyArt.Web.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a169f119-b98d-4654-92f3-f7fc21876d86",
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELE8YG/cosuBH+OOPPWHcDIuTS+r1q1WUoYzF0BZBb2yEPGQe8+q7rU3wxf56838+A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c1d172a2-a61d-4437-a14e-7d2741823640",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@localhost.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -204,6 +238,13 @@ namespace MyArt.Web.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                            RoleId = "f79a0806-0bc2-4d7f-b4c4-19263f08583a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

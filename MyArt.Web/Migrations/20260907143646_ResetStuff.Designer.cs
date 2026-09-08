@@ -12,8 +12,8 @@ using MyArt.Web.Data;
 namespace MyArt.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260906082953_MakeFirstNameNullable")]
-    partial class MakeFirstNameNullable
+    [Migration("20260907143646_ResetStuff")]
+    partial class ResetStuff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,11 +243,9 @@ namespace MyArt.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfBirth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("YearOfBirth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

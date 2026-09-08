@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyArt.Web.Models;
 
@@ -14,9 +15,47 @@ namespace MyArt.Web.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Technic> Technics { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { 
+                    Id = "f79a0806-0bc2-4d7f-b4c4-19263f08583a",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                },
+                new IdentityRole {
+                    Id = "b3a56ae8-7969-4e4a-8902-01ae516f78a0",
+                    Name = "User",
+                    NormalizedName = "USER",
+                }
+            );
+
+            modelBuilder.Entity<IdentityUser>().HasData(
+                new IdentityUser
+                {
+                    Id = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                    Email = "admin@localhost.com",
+                    NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                    UserName = "admin@localhost.com",
+                    NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                    PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "P@ssword1"),
+                    EmailConfirmed = true,
+                }
+            );
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    UserId = "c1a2b3c4-d5e6-7f8g-9h0i-j1k2l3m4n5o6",
+                    RoleId = "f79a0806-0bc2-4d7f-b4c4-19263f08583a"
+                }
+            );
+
+
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Artist>().HasData(
                 new Artist { Id =  1, LastName = "Banksy", PlaceOfBirth = "Yate (UK)", YearOfBirth = "1974" },
                 new Artist { Id =  2, FirstName = "Gerrit", LastName = "Baten", PlaceOfBirth = "Aalst", YearOfBirth = "1959" },

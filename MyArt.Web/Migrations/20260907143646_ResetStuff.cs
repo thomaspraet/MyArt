@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MyArt.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedArtistAndTechnicTable : Migration
+    public partial class ResetStuff : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,10 +19,10 @@ namespace MyArt.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlaceOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PlaceOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    YearOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
